@@ -45,7 +45,6 @@ function getNextApiKey() {
 // Ordered by speed and free quota generosity
 //
 const MODELS = [
-  'gemini-1.5-flash-latest',
   'gemini-1.5-pro-latest',
 ];
 

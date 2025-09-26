@@ -38,7 +38,7 @@ export type CollegeSearchOutput = z.infer<typeof ScrapeOutputSchema>;
  */
 const liveScrapePrompt = ai.definePrompt({
   name: 'liveScrapePrompt',
-  model: googleAI.model('gemini-1.5-flash-latest'),
+  model: googleAI.model('gemini-1.5-pro-latest'),
   input: { schema: CollegeSearchInputSchema },
   output: { schema: ScrapeOutputSchema },
   prompt: `
