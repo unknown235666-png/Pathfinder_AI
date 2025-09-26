@@ -45,7 +45,7 @@ export async function structuredAdvisorChat(
   const chatPrompt = ai.definePrompt(
     {
       name: 'structuredAdvisorChatPrompt',
-      model: googleAI.model('gemini-pro'),
+      model: 'gemini-pro',
       input: { schema: ChatInputSchema },
       output: { schema: ChatOutputSchema },
       prompt: `You are Pathfinder AI, a personalized education and career advisor. Your goal is to provide **structured, step-by-step, actionable guidance** for students and learners on skills, education, college, career planning, and scholarships. The output must be fully **clickable and structured**, so the user can directly access recommended courses, websites, and resources.

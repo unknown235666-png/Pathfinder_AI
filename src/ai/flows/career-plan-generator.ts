@@ -40,7 +40,7 @@ export async function generateCareerPlan(
   const careerPlanPrompt = ai.definePrompt(
     {
       name: 'careerPlanPrompt',
-      model: googleAI.model('gemini-pro'),
+      model: 'gemini-pro',
       input: { schema: CareerPlanInputSchema },
       output: { schema: CareerPlanOutputSchema },
       prompt: `

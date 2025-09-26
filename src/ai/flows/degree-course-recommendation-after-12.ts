@@ -29,7 +29,7 @@ export async function recommendDegreeCourses(
   const degreePrompt = ai.definePrompt(
     {
       name: 'degreeCourseRecommendationPrompt',
-      model: googleAI.model('gemini-pro'),
+      model: 'gemini-pro',
       input: {schema: DegreeCourseRecommendationInputSchema},
       output: {schema: DegreeCourseRecommendationOutputSchema},
       prompt: `You are an expert academic advisor. Recommend suitable degree courses after class 12 based on the following information:

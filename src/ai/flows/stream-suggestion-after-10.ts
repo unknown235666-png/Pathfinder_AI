@@ -27,7 +27,7 @@ export async function suggestStream(input: SuggestStreamInput): Promise<SuggestS
   const streamPrompt = ai.definePrompt(
     {
       name: 'suggestStreamPrompt',
-      model: googleAI.model('gemini-pro'),
+      model: 'gemini-pro',
       input: {schema: SuggestStreamInputSchema},
       output: {schema: SuggestStreamOutputSchema},
       prompt: `You are an academic advisor suggesting a stream to a student after class 10.

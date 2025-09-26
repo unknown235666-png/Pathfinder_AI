@@ -20,18 +20,16 @@ import {
   CareerPathExplorationInput,
   CareerPathExplorationOutput,
   CareerPathExplorationInputSchema,
-  CareerPathExplorationOutputSchema
+  CareerPathExplorationOutputSchema,
 } from './types';
-import { googleAI } from '@genkit-ai/googleai';
-
+import {googleAI} from '@genkit-ai/googleai';
 
 export async function careerPathExploration(
   input: CareerPathExplorationInput
 ): Promise<CareerPathExplorationOutput> {
-
   const careerPathPrompt = ai.definePrompt({
     name: 'careerPathExplorationPrompt',
-    model: googleAI.model('gemini-pro'),
+    model: 'gemini-pro',
     input: {schema: CareerPathExplorationInputSchema},
     output: {schema: CareerPathExplorationOutputSchema},
     prompt: `You are an expert career counselor.

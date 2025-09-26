@@ -28,7 +28,7 @@ export async function interestProfiler(input: InterestProfilerInput): Promise<In
   const profilerPrompt = ai.definePrompt(
     {
       name: 'interestProfilerPrompt',
-      model: googleAI.model('gemini-pro'),
+      model: 'gemini-pro',
       input: {schema: InterestProfilerInputSchema},
       output: {schema: InterestProfilerOutputSchema},
       prompt: `You are an expert academic advisor specializing in providing personalized recommendations to students after class 10/12.
