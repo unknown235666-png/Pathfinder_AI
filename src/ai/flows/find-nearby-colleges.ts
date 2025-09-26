@@ -38,7 +38,7 @@ export type CollegeSearchOutput = z.infer<typeof ScrapeOutputSchema>;
  */
 const liveScrapePrompt = ai.definePrompt({
   name: 'liveScrapePrompt',
-  model: 'gemini-1.5-flash-latest',
+  model: 'gemini-2.5-flash',
   input: { schema: CollegeSearchInputSchema },
   output: { schema: ScrapeOutputSchema },
   prompt: `
@@ -66,7 +66,7 @@ export async function searchCollegesLive(input: CollegeSearchInput): Promise<Col
 
     const { output } = await liveScrapePrompt(input);
 
-    if (!output || !output.colleges || output.colleges.length === 0) {
+    if (!output || !output.colleges || !output.colleges.length) {
       console.warn("DEPRECATED: No colleges found for state:", input.state);
       return { colleges: [] };
     }
