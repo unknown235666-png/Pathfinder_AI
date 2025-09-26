@@ -38,7 +38,7 @@ const ScrapeOutputSchema = z.object({
 
 const scrapeAndEnrichPrompt = ai.definePrompt({
   name: 'scrapeAndEnrichPrompt',
-  model: googleAI.model('gemini-1.5-pro-latest'),
+  model: googleAI.model('gemini-pro'),
   input: { schema: ScrapeInputSchema },
   output: { schema: ScrapeOutputSchema },
   prompt: `

@@ -14,7 +14,8 @@
  * - SuggestStreamOutput - The return type for the suggestStream function.
  */
 
-import {definePromptWithFallback} from '@/ai/genkit';
+import { ai } from '@/ai/genkit';
+import { googleAI } from '@genkit-ai/googleai';
 import {
     SuggestStreamInput,
     SuggestStreamOutput,
@@ -23,9 +24,10 @@ import {
 } from './types';
 
 export async function suggestStream(input: SuggestStreamInput): Promise<SuggestStreamOutput> {
-  const {output} = await definePromptWithFallback(
+  const streamPrompt = ai.definePrompt(
     {
       name: 'suggestStreamPrompt',
+      model: googleAI.model('gemini-pro'),
       input: {schema: SuggestStreamInputSchema},
       output: {schema: SuggestStreamOutputSchema},
       prompt: `You are an academic advisor suggesting a stream to a student after class 10.
@@ -36,9 +38,8 @@ export async function suggestStream(input: SuggestStreamInput): Promise<SuggestS
   Academic Performance: {{{academicPerformance}}}
   \nSuggested Stream:`,
     },
-    input
   );
+
+  const {output} = await streamPrompt(input);
   return output!;
 }
-
-    

@@ -15,7 +15,8 @@
  * - ChatOutput - The return type for the chat function.
  */
 
-import { definePromptWithFallback } from '@/ai/genkit';
+import { ai } from '@/ai/genkit';
+import { googleAI } from '@genkit-ai/googleai';
 import {
     ChatInput,
     ChatOutput,
@@ -41,9 +42,10 @@ export async function structuredAdvisorChat(
     .map(msg => `${msg.role === 'user' ? 'Student' : 'Advisor'}: ${msg.content}`)
     .join('\n');
 
-  const { output } = await definePromptWithFallback(
+  const chatPrompt = ai.definePrompt(
     {
       name: 'structuredAdvisorChatPrompt',
+      model: googleAI.model('gemini-pro'),
       input: { schema: ChatInputSchema },
       output: { schema: ChatOutputSchema },
       prompt: `You are Pathfinder AI, a personalized education and career advisor. Your goal is to provide **structured, step-by-step, actionable guidance** for students and learners on skills, education, college, career planning, and scholarships. The output must be fully **clickable and structured**, so the user can directly access recommended courses, websites, and resources.
@@ -108,11 +110,8 @@ ${conversationText}
 
 Current User Query: {{{query}}}
 `,
-    },
-    input
+    }
   );
-
+  const { output } = await chatPrompt(input);
   return output!;
 }
-
-    

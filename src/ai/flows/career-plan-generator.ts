@@ -17,7 +17,8 @@
  * - JSON-only structured output with strict section keys.
  */
 
-import { definePromptWithFallback } from '@/ai/genkit';
+import { ai } from '@/ai/genkit';
+import { googleAI } from '@genkit-ai/googleai';
 import {
   CareerPlanInput,
   CareerPlanOutput,
@@ -35,9 +36,11 @@ import { z } from 'zod';
 export async function generateCareerPlan(
   input: CareerPlanInput
 ): Promise<CareerPlanOutput> {
-  const { output } = await definePromptWithFallback(
+
+  const careerPlanPrompt = ai.definePrompt(
     {
       name: 'careerPlanPrompt',
+      model: googleAI.model('gemini-pro'),
       input: { schema: CareerPlanInputSchema },
       output: { schema: CareerPlanOutputSchema },
       prompt: `
@@ -71,9 +74,10 @@ User Input:
 -   **Be Motivational but Realistic**: Encourage the user while setting achievable expectations for their experience level.
 -   **JSON Output Only**: The final output must be a single, valid JSON object with the exact keys: \`careerRoadmap\`, \`learningPlan\`, \`weeklyTasks\`, \`projects\`, \`careerTips\`, \`milestones\`, \`resources\`, \`evaluation\`, and \`realWorldPractice\`. Do not include any markdown or explanatory text outside of the JSON structure.
       `,
-    },
-    input
+    }
   );
+
+  const { output } = await careerPlanPrompt(input);
 
   if (!output) {
     throw new Error('Failed to generate career plan: No output returned.');
@@ -92,5 +96,3 @@ User Input:
 
   return parsed.data;
 }
-
-    

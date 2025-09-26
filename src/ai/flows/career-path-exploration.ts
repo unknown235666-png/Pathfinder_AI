@@ -15,32 +15,32 @@
  * - CareerPathExplorationOutput - The return type for the careerPathExploration function.
  */
 
-import {definePromptWithFallback} from '@/ai/genkit';
+import {ai} from '@/ai/genkit';
 import {
   CareerPathExplorationInput,
   CareerPathExplorationOutput,
   CareerPathExplorationInputSchema,
   CareerPathExplorationOutputSchema
 } from './types';
+import { googleAI } from '@genkit-ai/googleai';
 
 
 export async function careerPathExploration(
   input: CareerPathExplorationInput
 ): Promise<CareerPathExplorationOutput> {
-  const {output} = await definePromptWithFallback(
-    {
-      name: 'careerPathExplorationPrompt',
-      input: {schema: CareerPathExplorationInputSchema},
-      output: {schema: CareerPathExplorationOutputSchema},
-      prompt: `You are an expert career counselor.
+
+  const careerPathPrompt = ai.definePrompt({
+    name: 'careerPathExplorationPrompt',
+    model: googleAI.model('gemini-pro'),
+    input: {schema: CareerPathExplorationInputSchema},
+    output: {schema: CareerPathExplorationOutputSchema},
+    prompt: `You are an expert career counselor.
 
 You will provide potential career paths, required skills, and job market trends related to the chosen degree course.
 
 Degree Course: {{{degreeCourse}}}`,
-    },
-    input
-  );
+  });
+
+  const {output} = await careerPathPrompt(input);
   return output!;
 }
-
-    
