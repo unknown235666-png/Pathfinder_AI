@@ -4,7 +4,7 @@ config(); // Load environment variables from .env
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { gemini15Flash } from '@genkit-ai/googleai';
+import { googleAI } from '@genkit-ai/googleai';
 import { firestore } from '@/lib/firebase-admin';
 
 // ------------------ Schemas ------------------
@@ -38,7 +38,7 @@ const ScrapeOutputSchema = z.object({
 
 const scrapeAndEnrichPrompt = ai.definePrompt({
   name: 'scrapeAndEnrichPrompt',
-  model: gemini15Flash,
+  model: googleAI.model('gemini-1.5-flash-latest'),
   input: { schema: ScrapeInputSchema },
   output: { schema: ScrapeOutputSchema },
   prompt: `

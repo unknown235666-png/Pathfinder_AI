@@ -6,7 +6,7 @@ config(); // Load environment variables from .env
 
 import fs from 'fs';
 import { ai } from '@/ai/genkit';
-import { gemini15Flash } from '@genkit-ai/googleai';
+import { googleAI } from '@genkit-ai/googleai';
 import { z } from 'genkit';
 
 const CollegeSchema = z.object({
@@ -30,7 +30,7 @@ const ScrapeOutputSchema = z.object({
 
 const scrapeCollegesPrompt = ai.definePrompt({
   name: 'scrapeCollegesPrompt',
-  model: gemini15Flash,
+  model: googleAI.model('gemini-1.5-flash-latest'),
   input: { schema: z.object({ url: z.string() }) },
   output: { schema: ScrapeOutputSchema },
   prompt: `
