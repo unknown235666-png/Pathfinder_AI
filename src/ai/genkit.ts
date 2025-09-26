@@ -21,7 +21,6 @@ import type { PromptAction, PromptOptions } from 'genkit';
    ---------------------------
    Prefer setting GEMINI_API_KEY in environment:
      export GEMINI_API_KEY="AIzaSy...."
-   The array below contains optional fallback keys (redacted placeholders).
 */
 const API_KEYS = [
   process.env.GEMINI_API_KEY || "AIzaSyCAUIqhQBKw5BnE9LIJ-C_r63UBF9rTYeM"
@@ -49,7 +48,7 @@ let currentApiKeyIndex = 0;
 let currentModelIndex = 0;
 
 /* Initialize genkit AI client with the first key */
-let ai = createAiForKey(API_KEYS[currentApiKeyIndex]);
+export let ai = createAiForKey(API_KEYS[currentApiKeyIndex]);
 
 /* Helper: create genkit instance for a given API key */
 function createAiForKey(key: string) {
@@ -165,7 +164,7 @@ export async function definePromptWithFallback<
         if (attempts % MODELS.length === 0) {
           // switch to next API key (re-inits ai)
           const prevKeyIndex = currentApiKeyIndex;
-          const nextKey = switchToNextApiKey();
+          switchToNextApiKey();
           console.log(`- Switched API key from index ${prevKeyIndex} -> ${currentApiKeyIndex}`);
           // If we came full circle to the initial key, and everything still fails, we'll eventually exit by maxAttempts
           if (currentApiKeyIndex === initialApiKeyIndex && attempts >= maxAttempts) {
@@ -196,35 +195,3 @@ function googleModelName(name: string) {
   // If user accidentally passes 'googleai/xxx', strip it.
   return name.replace(/^googleai\//, '');
 }
-
-/* ---------------------------
-   Example usage (commented)
-   ---------------------------
-   Example minimal prompt usage:
-
-   import { z } from 'zod';
-   const inputSchema = z.string();
-   const outputSchema = z.object({ text: z.string() });
-
-   (async () => {
-     try {
-       const res = await definePromptWithFallback(
-         {
-           name: 'testPrompt',
-           input: { schema: inputSchema },
-           output: { schema: outputSchema },
-           // prompt may be a string template or a function depending on genkit usage
-           prompt: `Say hello to {{{ input }}}`,
-         },
-         "World" // input that matches inputSchema
-       );
-       console.log('Result:', res.output);
-     } catch (e) {
-       console.error('Final failure:', e);
-     }
-   })();
-
-*/
-
-export default ai;
-export { ai };
