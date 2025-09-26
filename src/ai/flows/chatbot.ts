@@ -41,7 +41,7 @@ export async function structuredAdvisorChat(
     .map(msg => `${msg.role === 'user' ? 'Student' : 'Advisor'}: ${msg.content}`)
     .join('\n');
 
-  const chatPrompt = definePromptWithFallback(
+  const { output } = await definePromptWithFallback(
     {
       name: 'structuredAdvisorChatPrompt',
       input: { schema: ChatInputSchema },
@@ -108,8 +108,8 @@ ${conversationText}
 
 Current User Query: {{{query}}}
 `,
-    }
+    },
+    input
   );
-  const output = await chatPrompt(input);
   return output!;
 }

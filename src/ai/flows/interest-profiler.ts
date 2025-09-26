@@ -24,7 +24,7 @@ import {
 } from './types';
 
 export async function interestProfiler(input: InterestProfilerInput): Promise<InterestProfilerOutput> {
-  const profilerPrompt = definePromptWithFallback(
+  const { output } = await definePromptWithFallback(
     {
       name: 'interestProfilerPrompt',
       input: {schema: InterestProfilerInputSchema},
@@ -38,9 +38,9 @@ You will provide a detailed rationale for your suggestions, incorporating inform
 Interests: {{{interests}}}
 Academic Performance: {{{academicPerformance}}}
 Career Goals: {{{careerGoals}}}`,
-    }
+    },
+    input
   );
   
-  const output = await profilerPrompt(input);
   return output!;
 }

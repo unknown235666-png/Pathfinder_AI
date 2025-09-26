@@ -25,7 +25,7 @@ export async function recommendDegreeCourses(
   input: DegreeCourseRecommendationInput
 ): Promise<DegreeCourseRecommendationOutput> {
   
-  const degreePrompt = definePromptWithFallback(
+  const { output } = await definePromptWithFallback(
     {
       name: 'degreeCourseRecommendationPrompt',
       input: {schema: DegreeCourseRecommendationInputSchema},
@@ -40,9 +40,9 @@ export async function recommendDegreeCourses(
 
   Your output should be in JSON format.
   `,
-    }
+    },
+    input
   );
 
-  const output = await degreePrompt(input);
   return output!;
 }

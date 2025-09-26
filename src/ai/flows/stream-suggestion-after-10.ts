@@ -23,7 +23,7 @@ import {
 } from './types';
 
 export async function suggestStream(input: SuggestStreamInput): Promise<SuggestStreamOutput> {
-  const streamPrompt = definePromptWithFallback(
+  const { output } = await definePromptWithFallback(
     {
       name: 'suggestStreamPrompt',
       input: {schema: SuggestStreamInputSchema},
@@ -36,8 +36,8 @@ export async function suggestStream(input: SuggestStreamInput): Promise<SuggestS
   Academic Performance: {{{academicPerformance}}}
   \nSuggested Stream:`,
     },
+    input
   );
 
-  const output = await streamPrompt(input);
   return output!;
 }

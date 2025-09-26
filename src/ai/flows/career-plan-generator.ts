@@ -35,7 +35,7 @@ export async function generateCareerPlan(
   input: CareerPlanInput
 ): Promise<CareerPlanOutput> {
 
-  const careerPlanPrompt = definePromptWithFallback(
+  const { output } = await definePromptWithFallback(
     {
       name: 'careerPlanPrompt',
       input: { schema: CareerPlanInputSchema },
@@ -71,10 +71,9 @@ User Input:
 -   **Be Motivational but Realistic**: Encourage the user while setting achievable expectations for their experience level.
 -   **JSON Output Only**: The final output must be a single, valid JSON object with the exact keys: \`careerRoadmap\`, \`learningPlan\`, \`weeklyTasks\`, \`projects\`, \`careerTips\`, \`milestones\`, \`resources\`, \`evaluation\`, and \`realWorldPractice\`. Do not include any markdown or explanatory text outside of the JSON structure.
       `,
-    }
+    },
+    input
   );
-
-  const output = await careerPlanPrompt(input);
 
   if (!output) {
     throw new Error('Failed to generate career plan: No output returned.');

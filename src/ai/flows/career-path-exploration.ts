@@ -27,17 +27,19 @@ import { definePromptWithFallback } from '@/ai/genkit';
 export async function careerPathExploration(
   input: CareerPathExplorationInput
 ): Promise<CareerPathExplorationOutput> {
-  const careerPathPrompt = definePromptWithFallback({
-    name: 'careerPathExplorationPrompt',
-    input: {schema: CareerPathExplorationInputSchema},
-    output: {schema: CareerPathExplorationOutputSchema},
-    prompt: `You are an expert career counselor.
+  const { output } = await definePromptWithFallback(
+    {
+      name: 'careerPathExplorationPrompt',
+      input: {schema: CareerPathExplorationInputSchema},
+      output: {schema: CareerPathExplorationOutputSchema},
+      prompt: `You are an expert career counselor.
 
 You will provide potential career paths, required skills, and job market trends related to the chosen degree course.
 
 Degree Course: {{{degreeCourse}}}`,
-  });
+    },
+    input
+  );
 
-  const output = await careerPathPrompt(input);
   return output!;
 }
