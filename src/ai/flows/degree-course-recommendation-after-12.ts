@@ -13,8 +13,7 @@
  * - DegreeCourseRecommendationInput - The input type for the recommendDegreeCourses function.
  * - DegreeCourseRecommendationOutput - The return type for the recommendDegreeCourses function.
  */
-import { ai } from '@/ai/genkit';
-import { googleAI } from '@genkit-ai/googleai';
+import { definePromptWithFallback } from '@/ai/genkit';
 import {
     DegreeCourseRecommendationInput,
     DegreeCourseRecommendationOutput,
@@ -26,10 +25,9 @@ export async function recommendDegreeCourses(
   input: DegreeCourseRecommendationInput
 ): Promise<DegreeCourseRecommendationOutput> {
   
-  const degreePrompt = ai.definePrompt(
+  const degreePrompt = definePromptWithFallback(
     {
       name: 'degreeCourseRecommendationPrompt',
-      model: 'gemini-1.5-flash-latest',
       input: {schema: DegreeCourseRecommendationInputSchema},
       output: {schema: DegreeCourseRecommendationOutputSchema},
       prompt: `You are an expert academic advisor. Recommend suitable degree courses after class 12 based on the following information:
@@ -45,6 +43,6 @@ export async function recommendDegreeCourses(
     }
   );
 
-  const { output } = await degreePrompt(input);
+  const output = await degreePrompt(input);
   return output!;
 }

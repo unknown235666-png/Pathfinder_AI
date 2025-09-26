@@ -17,15 +17,13 @@
  * - JSON-only structured output with strict section keys.
  */
 
-import { ai } from '@/ai/genkit';
-import { googleAI } from '@genkit-ai/googleai';
+import { definePromptWithFallback } from '@/ai/genkit';
 import {
   CareerPlanInput,
   CareerPlanOutput,
   CareerPlanInputSchema,
   CareerPlanOutputSchema,
 } from './types';
-import { z } from 'zod';
 
 /**
  * Generate a structured and detailed career plan.
@@ -37,10 +35,9 @@ export async function generateCareerPlan(
   input: CareerPlanInput
 ): Promise<CareerPlanOutput> {
 
-  const careerPlanPrompt = ai.definePrompt(
+  const careerPlanPrompt = definePromptWithFallback(
     {
       name: 'careerPlanPrompt',
-      model: 'gemini-1.5-flash-latest',
       input: { schema: CareerPlanInputSchema },
       output: { schema: CareerPlanOutputSchema },
       prompt: `
@@ -77,7 +74,7 @@ User Input:
     }
   );
 
-  const { output } = await careerPlanPrompt(input);
+  const output = await careerPlanPrompt(input);
 
   if (!output) {
     throw new Error('Failed to generate career plan: No output returned.');

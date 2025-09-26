@@ -15,8 +15,7 @@
  * - InterestProfilerOutput - The return type for the interestProfiler function.
  */
 
-import { ai } from '@/ai/genkit';
-import { googleAI } from '@genkit-ai/googleai';
+import { definePromptWithFallback } from '@/ai/genkit';
 import {
     InterestProfilerInput,
     InterestProfilerOutput,
@@ -25,10 +24,9 @@ import {
 } from './types';
 
 export async function interestProfiler(input: InterestProfilerInput): Promise<InterestProfilerOutput> {
-  const profilerPrompt = ai.definePrompt(
+  const profilerPrompt = definePromptWithFallback(
     {
       name: 'interestProfilerPrompt',
-      model: 'gemini-1.5-flash-latest',
       input: {schema: InterestProfilerInputSchema},
       output: {schema: InterestProfilerOutputSchema},
       prompt: `You are an expert academic advisor specializing in providing personalized recommendations to students after class 10/12.
@@ -43,6 +41,6 @@ Career Goals: {{{careerGoals}}}`,
     }
   );
   
-  const {output} = await profilerPrompt(input);
+  const output = await profilerPrompt(input);
   return output!;
 }

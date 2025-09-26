@@ -5,7 +5,7 @@
  * See LICENSE-MIT or LICENSE-APACHE for details.
  */
 
-import {genkit} from 'genkit';
+import {genkit, PromptAction} from 'genkit';
 import {googleAI} from '@genkit-ai/googleai';
 import {z} from 'zod';
 import type {PromptOptions} from 'genkit';
@@ -30,21 +30,22 @@ const STABLE_MODEL = 'gemini-1.5-flash-latest';
 //
 // Custom prompt wrapper with simplified error handling.
 //
-export async function definePromptWithFallback<
+export function definePromptWithFallback<
   I extends z.ZodTypeAny,
   O extends z.ZodTypeAny,
->(options: Omit<PromptOptions<I, O>, 'model'>, input: z.infer<I>) {
+>(options: Omit<PromptOptions<I, O>, 'model'>): PromptAction<I, O> {
   
   const model = googleAI.model(STABLE_MODEL);
   const prompt = ai.definePrompt({...options, model: model as any});
   
-  try {
-    console.log(`- Using model ${STABLE_MODEL}`);
-    const {output} = await prompt(input);
-    return {output};
-  } catch (err: any) {
-    console.error(`- Model ${STABLE_MODEL} failed.`, err);
-    // Rethrow the original error for better debugging in the console.
-    throw err;
+  return async (input, promptOptions) => {
+    try {
+      console.log(`- Using model ${STABLE_MODEL}`);
+      return await prompt(input, promptOptions);
+    } catch (err: any) {
+      console.error(`- Model ${STABLE_MODEL} failed.`, err);
+      // Rethrow the original error for better debugging in the console.
+      throw err;
+    }
   }
 }
