@@ -14,10 +14,7 @@ import type {PromptOptions} from 'genkit';
 // API Key Setup
 //
 const API_KEYS = [
-  process.env.GEMINI_API_KEY,
-  'AIzaSyBOxpVgpYKPlchRcozFACfqvTG7pjO71vk',
-  'AIzaSyAZ9UA81AFuCw-YfRoc5TcVOnt4rUAGuQw',
-  'AIzaSyAUunaI2PLRuOGcdDxcZYNZYpsygkIv_ow',
+  'AIzaSyB6rQ4AlwpFvq3q3Ms7FcfL0E2g8yP_VOA',
 ].filter(Boolean) as string[];
 
 if (API_KEYS.length === 0) {
