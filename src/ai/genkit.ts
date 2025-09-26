@@ -10,7 +10,7 @@ import {googleAI} from '@genkit-ai/googleai';
 import {z} from 'zod';
 import type {PromptAction, PromptOptions} from 'genkit';
 
-const API_KEY = "AIzaSyADLnFUPXZbDtC6Z9tVbHH6Kz4fz9bZN0U";
+const API_KEY = "AIzaSyCAUIqhQBKw5BnE9LIJ-C_r63UBF9rTYeM";
 
 if (!API_KEY) {
   console.warn(
