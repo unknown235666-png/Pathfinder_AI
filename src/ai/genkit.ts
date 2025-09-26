@@ -2,7 +2,7 @@
  * src/ai/genkit.ts
  *
  * Simplified GenKit wrapper to ensure stability.
- *  - Uses a single, stable model ('gemini-1.5-flash-latest').
+ *  - Uses a single, stable model ('gemini-pro').
  *  - Uses a single, hardcoded API key.
  *  - Simple error handling.
  */
@@ -26,7 +26,7 @@ export let ai = genkit({
 });
 
 // Define a single, stable model to use for all prompts.
-const STABLE_MODEL = 'gemini-1.5-flash-latest';
+const STABLE_MODEL = 'gemini-pro';
 
 /**
  * A simplified prompt wrapper. It uses one stable model and provides clear errors.
