@@ -131,13 +131,14 @@ export function Chatbot() {
        // Let onSnapshot handle the final state update from Firestore
     } catch (error: any) {
       console.error(error);
-      const errorMessage: ConversationMessage = { content: "Sorry, I encountered an error. Please try again.", role: 'ai' };
+      const errorMessageContent = error.message || "Failed to get a response from the AI. Please check your API key and permissions.";
+      const errorMessage: ConversationMessage = { content: `Sorry, I encountered an error: ${errorMessageContent}`, role: 'ai' };
       await addDoc(chatHistoryCollectionRef, { ...errorMessage, timestamp: serverTimestamp() });
       
       toast({
         variant: "destructive",
-        title: "Error",
-        description: error.message || "Failed to get a response from the AI.",
+        title: "AI Error",
+        description: errorMessageContent,
       });
     } finally {
       setLoading(false);
@@ -250,5 +251,3 @@ export function Chatbot() {
     </Card>
   );
 }
-
-    

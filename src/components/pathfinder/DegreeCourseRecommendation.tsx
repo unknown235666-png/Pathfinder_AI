@@ -68,12 +68,12 @@ export function DegreeCourseRecommendation() {
         });
       }
       
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "Failed to get recommendations. Please try again.",
+        title: "AI Error",
+        description: error.message || "Failed to get recommendations. Please check your API key and project permissions.",
       });
     } finally {
       setLoading(false);
@@ -178,5 +178,3 @@ export function DegreeCourseRecommendation() {
     </GlassCard>
   );
 }
-
-    

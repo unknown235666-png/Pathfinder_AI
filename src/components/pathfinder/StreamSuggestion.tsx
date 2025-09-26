@@ -68,12 +68,12 @@ export function StreamSuggestion() {
         });
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "Failed to get suggestion. Please try again.",
+        title: "AI Error",
+        description: error.message || "Failed to get suggestion. Please check your API key and project permissions.",
       });
     } finally {
       setLoading(false);
@@ -148,5 +148,3 @@ export function StreamSuggestion() {
     </GlassCard>
   );
 }
-
-    

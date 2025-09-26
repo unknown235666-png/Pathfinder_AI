@@ -67,12 +67,12 @@ export function InterestProfiler() {
         });
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "Failed to get suggestions. Please try again.",
+        title: "AI Error",
+        description: error.message || "Failed to get suggestions. Please check your API key and project permissions.",
       });
     } finally {
       setLoading(false);
@@ -174,5 +174,3 @@ export function InterestProfiler() {
     </GlassCard>
   );
 }
-
-    

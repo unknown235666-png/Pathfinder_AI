@@ -82,8 +82,8 @@ export function CareerPlanGenerator() {
       console.error(error);
       toast({
         variant: "destructive",
-        title: "Error Generating Plan",
-        description: error.message || "Failed to generate a plan. The AI may be busy. Please try again.",
+        title: "AI Error",
+        description: error.message || "Failed to generate a plan. Please check your API key and project permissions.",
       });
     } finally {
       setLoading(false);
@@ -194,14 +194,14 @@ export function CareerPlanGenerator() {
       doc.save(`Career-Plan-for-${form.getValues('desiredCareerOutcome').replace(/\s+/g, '-')}.pdf`);
 
     } catch (error) {
-      console.error("Failed to export PDF:", error);
-      toast({
-        variant: "destructive",
-        title: "Export Failed",
-        description: "An error occurred while exporting the plan to PDF.",
-      });
+        console.error("Failed to export PDF:", error);
+        toast({
+            variant: "destructive",
+            title: "Export Failed",
+            description: "An error occurred while exporting the plan to PDF.",
+        });
     } finally {
-      setExporting(false);
+        setExporting(false);
     }
   };
 
@@ -517,5 +517,3 @@ export function CareerPlanGenerator() {
     </GlassCard>
   );
 }
-
-    
