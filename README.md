@@ -49,11 +49,11 @@ To get a local copy up and running, follow these simple steps.
     - Add your Firebase and Gemini API keys. You can get these from the Firebase Console and Google AI Studio respectively.
     ```env
     # Firebase Public Config (client-side)
-    NEXT_PUBLIC_FIREBASE_API_KEY="AIza..."
+    NEXT_PUBLIC_FIREBASE_API_KEY="AIzaSyAmsiE5yJAn8UyP0QemsA-fZ4bbKI0DvFU"
     # You can get the full client-side config from your Firebase project settings
     
     # Gemini API Key (server-side for Genkit)
-    GEMINI_API_KEY="AIza..." 
+    GEMINI_API_KEY="AIzaSyAmsiE5yJAn8UyP0QemsA-fZ4bbKI0DvFU" 
     
     # Firebase Admin SDK (server-side)
     # You can get this from your Firebase project settings -> Service accounts

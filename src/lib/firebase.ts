@@ -6,7 +6,7 @@ const firebaseConfig = {
   "projectId": "pathfinder-ai-xsk6g",
   "appId": "1:686789703927:web:cd9cfb6ea066e1a52f7bf2",
   "storageBucket": "pathfinder-ai-xsk6g.firebasestorage.app",
-  "apiKey": "AIzaSyCAUIqhQBKw5BnE9LIJ-C_r63UBF9rTYeM",
+  "apiKey": "AIzaSyAmsiE5yJAn8UyP0QemsA-fZ4bbKI0DvFU",
   "authDomain": "pathfinder-ai-xsk6g.firebaseapp.com",
   "messagingSenderId": "686789703927"
 };

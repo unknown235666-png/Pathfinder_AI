@@ -23,7 +23,7 @@ import type { PromptAction, PromptOptions } from 'genkit';
      export GEMINI_API_KEY="AIzaSy...."
 */
 const API_KEYS = [
-  process.env.GEMINI_API_KEY || "AIzaSyCAUIqhQBKw5BnE9LIJ-C_r63UBF9rTYeM"
+  process.env.GEMINI_API_KEY || "AIzaSyAmsiE5yJAn8UyP0QemsA-fZ4bbKI0DvFU"
 ].filter(Boolean) as string[];
 
 if (API_KEYS.length === 0) {
