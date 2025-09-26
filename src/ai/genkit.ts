@@ -25,8 +25,7 @@ export const ai = genkit({
 
 // Define a list of models to try in order of preference.
 const MODELS_TO_TRY = [
-  'gemini-1.5-flash-latest', // A good, fast, and generally available model
-  'gemini-pro',              // A standard, widely available model
+  'gemini-1.5-flash-latest',
 ];
 
 
