@@ -1,3 +1,4 @@
+
 /**
  * Copyright 2025 Pathfinder AI Contributors
  *
@@ -10,7 +11,7 @@ import {googleAI} from '@genkit-ai/googleai';
 import {z} from 'zod';
 import type {PromptAction, PromptOptions} from 'genkit';
 
-const API_KEY = "AIzaSyAmsiE5yJAn8UyP0QemsA-fZ4bbKI0DvFU";
+const API_KEY = "AIzaSyBgLJMNCiBBtCaHZcvJvAJSz81G7R9vDxs";
 
 if (!API_KEY) {
   console.warn(
@@ -25,6 +26,7 @@ export const ai = genkit({
 
 // Define a list of models to try in order of preference.
 const MODELS_TO_TRY = [
+  'gemini-pro',
   'gemini-2.5-flash',
   'gemini-2.5-pro',
   'gemini-2.5-flash-lite',
@@ -43,7 +45,7 @@ export async function definePromptWithFallback<
 ): Promise<{ output: z.infer<O> }> {
   
   for (const modelName of MODELS_TO_TRY) {
-    const model = googleAI.model(modelName);
+    const model = googleAI.model(modelName as any);
     const prompt = ai.definePrompt({...options, model: model as any});
     
     try {
