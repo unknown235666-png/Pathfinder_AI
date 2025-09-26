@@ -24,10 +24,7 @@ import type { PromptAction, PromptOptions } from 'genkit';
    The array below contains optional fallback keys (redacted placeholders).
 */
 const API_KEYS = [
-  process.env.GEMINI_API_KEY,
-  // Add fallback keys here if you want (placeholders shown). DON'T commit real keys.
-  process.env.GEMKIT_FALLBACK_KEY_1 || 'AIzaSyREDACTED_1',
-  process.env.GEMKIT_FALLBACK_KEY_2 || 'AIzaSyREDACTED_2',
+  process.env.GEMINI_API_KEY || "AIzaSyCAUIqhQBKw5BnE9LIJ-C_r63UBF9rTYeM"
 ].filter(Boolean) as string[];
 
 if (API_KEYS.length === 0) {
@@ -43,9 +40,6 @@ if (API_KEYS.length === 0) {
 */
 const MODELS = [
   'gemini-1.5-flash-latest',
-  'gemini-1.5-pro-latest',
-  'gemini-1.5-flash-002', // try concrete versions if -latest fails
-  'gemini-1.5-pro-002',
 ];
 
 /* ---------------------------
@@ -217,8 +211,8 @@ function googleModelName(name: string) {
        const res = await definePromptWithFallback(
          {
            name: 'testPrompt',
-           input: inputSchema,
-           output: outputSchema,
+           input: { schema: inputSchema },
+           output: { schema: outputSchema },
            // prompt may be a string template or a function depending on genkit usage
            prompt: `Say hello to {{{ input }}}`,
          },
@@ -232,6 +226,5 @@ function googleModelName(name: string) {
 
 */
 
-export default {
-  definePromptWithFallback,
-};
+export default ai;
+export { ai };
