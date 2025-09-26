@@ -24,7 +24,7 @@ export const ai = genkit({
 });
 
 
-const STABLE_MODEL = 'gemini-pro';
+const STABLE_MODEL = 'gemini-1.5-flash-latest';
 
 
 //

@@ -30,7 +30,7 @@ const ScrapeOutputSchema = z.object({
 
 const scrapeCollegesPrompt = ai.definePrompt({
   name: 'scrapeCollegesPrompt',
-  model: 'gemini-pro',
+  model: 'gemini-1.5-flash-latest',
   input: { schema: z.object({ url: z.string() }) },
   output: { schema: ScrapeOutputSchema },
   prompt: `

@@ -29,7 +29,7 @@ export async function careerPathExploration(
 ): Promise<CareerPathExplorationOutput> {
   const careerPathPrompt = ai.definePrompt({
     name: 'careerPathExplorationPrompt',
-    model: 'gemini-pro',
+    model: 'gemini-1.5-flash-latest',
     input: {schema: CareerPathExplorationInputSchema},
     output: {schema: CareerPathExplorationOutputSchema},
     prompt: `You are an expert career counselor.
