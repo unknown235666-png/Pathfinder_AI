@@ -126,5 +126,5 @@ export async function autoSeedColleges() {
 }
 
 
-// To run this seeder, execute `npm run db:ai-seed` in your terminal.
+// To run this seeder, execute \`npm run db:ai-seed\` in your terminal.
 autoSeedColleges();

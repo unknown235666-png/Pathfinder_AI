@@ -79,6 +79,5 @@ export async function buildIndianCollegesJson() {
 }
 
 
-// To run this script, execute `npm run build:json` in your terminal.
+// To run this script, execute \`npm run build:json\` in your terminal.
 buildIndianCollegesJson();
-

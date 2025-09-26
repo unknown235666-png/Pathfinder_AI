@@ -48,8 +48,8 @@ function getNextApiKey() {
 // Ordered by speed and free quota generosity
 //
 const MODELS = [
-  'googleai/gemini-1.5-flash-latest',
-  'googleai/gemini-1.5-pro-latest',
+  'gemini-1.5-flash-latest',
+  'gemini-1.5-pro-latest',
 ];
 
 let currentModelIndex = 0;
@@ -77,7 +77,7 @@ export async function definePromptWithFallback<
   const initialApiKeyIndex = currentApiKeyIndex;
 
   while(modelAttempts < MODELS.length * API_KEYS.length) {
-    const model = getNextModel();
+    const modelName = getNextModel();
     const currentApiKey = API_KEYS[currentApiKeyIndex];
     
     // After trying all models, switch to the next API key
@@ -90,11 +90,12 @@ export async function definePromptWithFallback<
         }
     }
 
+    const model = googleAI.model(modelName);
     const prompt = ai.definePrompt({...options, model: model as any});
     modelAttempts++;
 
     try {
-      console.log(`- Attempt ${modelAttempts}: Using model ${model} with API Key index ${currentApiKeyIndex}`);
+      console.log(`- Attempt ${modelAttempts}: Using model ${modelName} with API Key index ${currentApiKeyIndex}`);
       const {output} = await prompt(input);
       return {output};
     } catch (err: any) {
@@ -103,9 +104,9 @@ export async function definePromptWithFallback<
         (err.message && (err.message.includes('429') || err.message.includes('quota') || err.message.includes('API key not valid')));
 
       if (isRetryableError) {
-        console.warn(`  - Model ${model} with API Key index ${currentApiKeyIndex} failed (Retryable Error). Trying next combination...`);
+        console.warn(`  - Model ${modelName} with API Key index ${currentApiKeyIndex} failed (Retryable Error). Trying next combination...`);
       } else {
-        console.error(`- Model ${model} failed (Non-Retryable Error).`, err);
+        console.error(`- Model ${modelName} failed (Non-Retryable Error).`, err);
         throw err;
       }
     }
