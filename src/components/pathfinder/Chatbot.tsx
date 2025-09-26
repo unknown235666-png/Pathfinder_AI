@@ -112,29 +112,29 @@ export function Chatbot() {
     const userMessage: ConversationMessage = { content: userQuery, role: 'user' };
     
     // Optimistically update UI
-    const tempMessages = [...messages, userMessage];
-    setMessages(tempMessages);
-
-    // Save user message to Firestore with a server timestamp
-    const chatHistoryCollectionRef = collection(db, "users", user.uid, "chatHistory");
-    const userMessageForDb = { ...userMessage, timestamp: serverTimestamp() };
-    await addDoc(chatHistoryCollectionRef, userMessageForDb);
+    setMessages(prev => [...prev, userMessage]);
 
     try {
-      // The history passed to the server action is clean (no Timestamps)
-      const res = await structuredAdvisorChat({ query: userQuery, history: messages });
-      const aiMessage: ConversationMessage = { content: res.response, role: 'ai' };
+        // Save user message to Firestore with a server timestamp
+        const chatHistoryCollectionRef = collection(db, "users", user.uid, "chatHistory");
+        const userMessageForDb = { ...userMessage, timestamp: serverTimestamp() };
+        await addDoc(chatHistoryCollectionRef, userMessageForDb);
+      
+        // The history passed to the server action is clean (no Timestamps)
+        const res = await structuredAdvisorChat({ query: userQuery, history: messages });
+        const aiMessage: ConversationMessage = { content: res.response, role: 'ai' };
 
-      // Save AI response to Firestore, also with a server timestamp
+        // Save AI response to Firestore, also with a server timestamp
        await addDoc(chatHistoryCollectionRef, { ...aiMessage, timestamp: serverTimestamp() });
 
        // Let onSnapshot handle the final state update from Firestore
     } catch (error: any) {
       console.error(error);
       const errorMessageContent = error.message || "Failed to get a response from the AI. Please check your API key and permissions.";
-      const errorMessage: ConversationMessage = { content: `Sorry, I encountered an error: ${errorMessageContent}`, role: 'ai' };
-      await addDoc(chatHistoryCollectionRef, { ...errorMessage, timestamp: serverTimestamp() });
       
+      // Remove the optimistic user message on failure
+      setMessages(prev => prev.slice(0, -1));
+
       toast({
         variant: "destructive",
         title: "AI Error",
