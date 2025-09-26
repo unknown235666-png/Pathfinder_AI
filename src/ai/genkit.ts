@@ -5,12 +5,12 @@
  * See LICENSE-MIT or LICENSE-APACHE for details.
  */
 
-import {genkit, PromptAction} from 'genkit';
+import {genkit} from 'genkit';
 import {googleAI} from '@genkit-ai/googleai';
 import {z} from 'zod';
-import type {PromptOptions} from 'genkit';
+import type {PromptAction, PromptOptions} from 'genkit';
 
-const API_KEY = process.env.GEMINI_API_KEY || 'AIzaSyB6rQ4AlwpFvq3q3Ms7FcfL0E2g8yP_VOA';
+const API_KEY = "AIzaSyBCT9rbJwihALX7s-njaJhby4uf_xG0YiA";
 
 if (!API_KEY) {
   console.warn(

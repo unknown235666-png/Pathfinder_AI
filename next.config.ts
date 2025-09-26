@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
     ],
   },
   env: {
-    NEXT_PUBLIC_FIREBASE_API_KEY: "AIzaSyB6rQ4AlwpFvq3q3Ms7FcfL0E2g8yP_VOA",
+    NEXT_PUBLIC_FIREBASE_API_KEY: "AIzaSyBCT9rbJwihALX7s-njaJhby4uf_xG0YiA",
     FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
     FIREBASE_SERVICE_ACCOUNT_KEY: process.env.FIREBASE_PRIVATE_KEY
       ? JSON.stringify({
